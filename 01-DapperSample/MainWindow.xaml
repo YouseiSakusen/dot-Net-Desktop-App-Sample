@@ -1,0 +1,30 @@
+﻿<Window x:Class="DapperSample.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:DapperSample"
+		mc:Ignorable="d"
+		Title="MainWindow" Height="450" Width="700" WindowStartupLocation="CenterScreen">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.1*"/>
+			<RowDefinition Height="0.1*"/>
+			<RowDefinition Height="0.8*"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,5,10,5">
+			<Button x:Name="btnAdo" Content="ADO.NETで取得" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnAdo_Click"/>
+			<Button x:Name="btnDynamic" Content="dynamic型で取得" Click="btnDynamic_Click" Padding="5,5,5,5" Margin="10,0,0,0"/>
+			<Button x:Name="btnInMapping" Content="IN 句にマッピング" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnInMapping_Click"/>
+			<Button x:Name="btnColName" Content="ColName型で取得" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnColName_Click"/>
+			<Button x:Name="btnNormal" Content="Normal型で取得" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnNormal_Click"/>
+			<Button x:Name="btnJoinOne" Content="1対1にマッピング" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnJoinOne_Click"/>
+		</StackPanel>
+		<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,5,10,5">
+			<Button x:Name="btnJoinMany" Content="1対多にマッピング" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnJoinMany_Click"/>
+			<Button x:Name="btnScalar" Content="スカラー値の取得" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnScalar_Click"/>
+			<Button x:Name="btnInsert" Content="データINSERT" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnInsert_Click"/>
+		</StackPanel>
+		<TextBox x:Name="txtResult" TextWrapping="Wrap" Grid.Row="2" IsReadOnly="True"/>
+	</Grid>
+</Window>
