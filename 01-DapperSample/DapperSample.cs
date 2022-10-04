@@ -1,9 +1,8 @@
-﻿namespace DapperSample
+﻿namespace DapperSample;
+
+public enum Sex
 {
-	public enum Sex
-	{
-		設定なし = 0,
-		男 = 1,
-		女 = 2
-	}
+	設定なし = 0,
+	男 = 1,
+	女 = 2
 }

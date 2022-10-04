@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace DapperSample.Entities
+namespace DapperSample.Entities;
+
+/// <summary>キャラクターの所属を表します。</summary>
+public class Affiliation
 {
-	/// <summary>キャラクターの所属を表します。</summary>
-	public class Affiliation
-	{
-		public int Id { get; set; } = 0;
+	public int Id { get; set; } = 0;
 
-		public string Name { get; set; } = string.Empty;
+	public string Name { get; set; } = string.Empty;
 
-		public List<Character_Normal> Characters
-			=> this._characters;
+	public List<Character_Normal> Characters
+		=> this._characters;
 
-		private readonly List<Character_Normal> _characters = new List<Character_Normal>();
-	}
+	private readonly List<Character_Normal> _characters = new List<Character_Normal>();
 }

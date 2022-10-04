@@ -24,6 +24,7 @@
 			<Button x:Name="btnJoinMany" Content="1対多にマッピング" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnJoinMany_Click"/>
 			<Button x:Name="btnScalar" Content="スカラー値の取得" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnScalar_Click"/>
 			<Button x:Name="btnInsert" Content="データINSERT" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnInsert_Click"/>
+			<Button x:Name="btnMultiInsert" Content="複数データINSERT" Padding="5,5,5,5" Margin="10,0,0,0" Click="btnMultiInsert_Click"/>
 		</StackPanel>
 		<TextBox x:Name="txtResult" TextWrapping="Wrap" Grid.Row="2" IsReadOnly="True"/>
 	</Grid>
