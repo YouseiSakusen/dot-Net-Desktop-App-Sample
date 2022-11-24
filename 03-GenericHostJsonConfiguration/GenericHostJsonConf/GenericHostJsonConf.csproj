@@ -8,7 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Options\**" />
+    <Content Remove="Options\**" />
+    <EmbeddedResource Remove="Options\**" />
+    <None Remove="Options\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard" Version="1.0.116" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings - コピー.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 </Project>

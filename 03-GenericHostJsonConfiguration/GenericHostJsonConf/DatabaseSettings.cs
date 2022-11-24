@@ -11,4 +11,6 @@ public record DatabaseSettings
 
 	/// <summary>DBの接続文字列を取得・設定します。</summary>
 	public string ConnectString { get; set; } = string.Empty;
+
+	public string DbFilePath { get; set; } = string.Empty;
 }

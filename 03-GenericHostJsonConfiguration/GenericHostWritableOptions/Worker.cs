@@ -1,18 +1,20 @@
-using Microsoft.Extensions.Options;
+using GenericHostJsonConf;
+using OptionsWritable;
 
-namespace GenericHostJsonConf;
+namespace GenericHostWritableOptions;
 
 public class Worker : BackgroundService
 {
 	private readonly ILogger<Worker> _logger;
-	private readonly DatabaseSettings databaseSettings;
 
-	public Worker(ILogger<Worker> logger, IOptionsMonitor<DatabaseSettings> options)
+	public Worker(ILogger<Worker> logger, IOptionsWritable<DatabaseSettings> options)
 	{
 		_logger = logger;
-		this.databaseSettings = options.Get(DatabaseSettings.Sqlite);
+		var dbSetting = options.Get(DatabaseSettings.Sqlite);
 
-		Console.WriteLine(this.databaseSettings.ConnectString);
+		Console.WriteLine(dbSetting.ConnectString);
+
+		options.UpdateAsync(DatabaseSettings.Sqlite, ds => ds.ConnectString = "hoge");
 	}
 
 	protected override async Task ExecuteAsync(CancellationToken stoppingToken)
