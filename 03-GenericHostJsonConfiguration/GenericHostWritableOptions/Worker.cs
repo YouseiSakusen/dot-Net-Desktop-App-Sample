@@ -6,6 +6,7 @@ namespace GenericHostWritableOptions;
 public class Worker : BackgroundService
 {
 	private readonly ILogger<Worker> _logger;
+	private readonly IDisposable optionsWritableDisposable;
 
 	public Worker(ILogger<Worker> logger, IOptionsWritable<DatabaseSettings> options)
 	{
@@ -14,6 +15,7 @@ public class Worker : BackgroundService
 
 		Console.WriteLine(dbSetting.ConnectString);
 
+		this.optionsWritableDisposable = options.OnUpdated((settings, name) => Console.WriteLine($"Updated!!"));
 		options.UpdateAsync(DatabaseSettings.Sqlite, ds => ds.ConnectString = "hoge");
 	}
 
@@ -24,5 +26,11 @@ public class Worker : BackgroundService
 			_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
 			await Task.Delay(1000, stoppingToken);
 		}
+	}
+
+	public override void Dispose()
+	{
+		this.optionsWritableDisposable.Dispose();
+		base.Dispose();
 	}
 }

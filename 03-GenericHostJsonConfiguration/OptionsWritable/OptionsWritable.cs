@@ -2,7 +2,6 @@
 using System.Text.Json;
 using System.Text.Unicode;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
 namespace OptionsWritable;
@@ -15,6 +14,7 @@ public class OptionsWritable<T> : IOptionsWritable<T> where T : class, new()
 	private readonly IConfigurationRoot configRoot;
 	private readonly string sectionName;
 	private readonly string jsonFileName;
+	internal event Action<T, string>? onUpdated = null;
 
 	/// <summary>コンストラクタ</summary>
 	/// <param name="hostEnvironment">アプリケーションが実行されているホスティング環境を表すIHostEnvironment。</param>
@@ -40,6 +40,17 @@ public class OptionsWritable<T> : IOptionsWritable<T> where T : class, new()
 	/// <returns>リスナーを停止する際に破棄する必要があるIDisposable。</returns>
 	public IDisposable OnChange(Action<T, string> listener)
 		=> this.monitor.OnChange(listener);
+
+	/// <summary>オプションを更新した後に発生するイベントを表します。</summary>
+	/// <param name="listener">イベント発生時に実行するデリゲートを表すAction。</param>
+	/// <returns>イベントの購読を解除するためのIDisposable。</returns>
+	public IDisposable OnUpdated(Action<T, string> listener)
+	{
+		var tracker = new UpdatedTrackerDisposable(this, listener);
+		this.onUpdated += tracker.OnUpdated;
+
+		return tracker;
+	}
 
 	/// <summary>名前付きオプションを更新して永続化します。</summary>
 	/// <param name="name">オプションの名前を表す文字列。</param>
@@ -73,7 +84,7 @@ public class OptionsWritable<T> : IOptionsWritable<T> where T : class, new()
 		var tempJson = JsonSerializer.Serialize<Dictionary<string, T>>(updateSections);
 		var savedElement = JsonSerializer.Deserialize<JsonElement>(tempJson);
 
-		await this.saveToAppSettingsJsonAsync(appSettingsInfo, savedElement);
+		await this.saveToAppSettingsJsonAsync(appSettingsInfo, savedElement, option, name);
 	}
 
 	/// <summary>オプションを更新して永続化します。</summary>
@@ -86,7 +97,7 @@ public class OptionsWritable<T> : IOptionsWritable<T> where T : class, new()
 		var tempJson = JsonSerializer.Serialize<T>(option);
 		var savedElement = JsonSerializer.Deserialize<JsonElement>(tempJson);
 
-		await this.saveToAppSettingsJsonAsync(appSettingsInfo, savedElement);
+		await this.saveToAppSettingsJsonAsync(appSettingsInfo, savedElement, option, string.Empty);
 	}
 
 	/// <summary>appsettings.jsonからデシリアライズしたオブジェクトとappsettings.jsonのフルパスを取得します。</summary>
@@ -113,8 +124,10 @@ public class OptionsWritable<T> : IOptionsWritable<T> where T : class, new()
 	/// <summary>appsettings.jsonに保存します。</summary>
 	/// <param name="appSettingsInfo">シリアライズするオブジェクトと保存先ファイルのフルパスを表すTuple。</param>
 	/// <param name="savedElement">保存するJsonElement。</param>
+	/// <param name="options">更新後のオプション情報を表すT。</param>
+	/// <param name="name">更新対象の名前付きオプションの名前を表す文字列。（名前付きオプションでない場合は空文字）</param>
 	/// <returns>処理結果を表すValueTask。</returns>
-	private async ValueTask saveToAppSettingsJsonAsync((Dictionary<string, object> Settings, string jsonPath) appSettingsInfo, JsonElement savedElement)
+	private async ValueTask saveToAppSettingsJsonAsync((Dictionary<string, object> Settings, string jsonPath) appSettingsInfo, JsonElement savedElement, T options, string name)
 	{
 		// appsettings.jsonからデシリアライズしたDictionary<string, object>の
 		// セクションを丸ごと上で作ったJsonElementに置き換える
@@ -129,6 +142,33 @@ public class OptionsWritable<T> : IOptionsWritable<T> where T : class, new()
 		// 後はappsettings.jsonからデシリアライズしたDictionary<string, object>を
 		// appsettings.jsonに書き出す
 		await File.WriteAllTextAsync(appSettingsInfo.jsonPath, JsonSerializer.Serialize<Dictionary<string, object>>(appSettingsInfo.Settings, serializeOption));
+		
+		// 設定情報を再読込
 		this.configRoot.Reload();
+		// 更新を通知
+		this.onUpdated?.Invoke(options, name);
+	}
+
+	/// <summary>OnUpdatedの呼出を追跡します。</summary>
+	internal sealed class UpdatedTrackerDisposable : IDisposable
+	{
+		private readonly Action<T, string> listener;
+		private readonly OptionsWritable<T> optionsWritable;
+
+		/// <summary>コンストラクタ。</summary>
+		/// <param name="options">イベントの発生元を表すOptionsWritable<T>。</param>
+		/// <param name="updateListener">イベントの発生時に実行するデリゲートを表すAction。</param>
+		public UpdatedTrackerDisposable(OptionsWritable<T> options, Action<T, string> updateListener)
+			=> (this.optionsWritable, this.listener) = (options, updateListener);
+
+		/// <summary>OnUpdatedイベントを発生させます。</summary>
+		/// <param name="options">更新対象のオプション情報を表すT。</param>
+		/// <param name="name">名前付きオプションの名前を表す文字列。（名前無しの場合は空文字）</param>
+		public void OnUpdated(T options, string name)
+			=> this.listener.Invoke(options, name);
+
+		/// <summary>イベントを破棄します。</summary>
+		public void Dispose()
+			=> this.optionsWritable.onUpdated -= this.OnUpdated;
 	}
 }

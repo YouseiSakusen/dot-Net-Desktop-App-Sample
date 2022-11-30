@@ -3,6 +3,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using GenericHostJsonConf;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using System.Diagnostics;
 
 namespace OptionsWritable.Tests;
 
@@ -32,11 +34,14 @@ public class OptionsWritableTests
 		Assert.NotNull(options);
 		Assert.True(options.CurrentValue.ConnectString == "NoName");
 
-		string updatedValue = string.Empty;
+		var updatedValue = $"foo{options.CurrentValue.ConnectString}bar";
+		using var disposable = options.OnUpdated((settings, name) =>
+		{
+			Assert.True(settings.ConnectString == updatedValue);
+		});
 
 		await options.UpdateAsync(ds =>
 		{
-			updatedValue = $"foo{ds.ConnectString}bar";
 			ds.ConnectString = updatedValue;
 		});
 
@@ -73,6 +78,11 @@ public class OptionsWritableTests
 
 		Assert.NotNull(options);
 		Assert.True(options.Get(name).ConnectString == jsonValue);
+
+		using var disposable = options.OnUpdated((settings, name) =>
+		{
+			Assert.True(settings.ConnectString == updatedValue);
+		});
 
 		await options.UpdateAsync(name, ds =>
 		{

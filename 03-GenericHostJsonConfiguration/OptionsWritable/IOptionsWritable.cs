@@ -16,4 +16,9 @@ public interface IOptionsWritable<out T> : IOptionsMonitor<T> where T : class, n
 	/// <param name="applyChange">オプションの内容を更新するAction<T>。</param>
 	/// <returns>処理結果を表すValueTask。</returns>
 	ValueTask UpdateAsync(Action<T> applyChange);
+
+	/// <summary>更新時に発生するイベントを表します。</summary>
+	/// <param name="listener">イベント発生時に実行するAction。</param>
+	/// <returns>イベントを破棄するためのIDisposable。</returns>
+	IDisposable OnUpdated(Action<T, string> listener);
 }

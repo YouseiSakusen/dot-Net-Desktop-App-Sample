@@ -43,7 +43,7 @@ public static class ServiceCollectionExtensions
 	/// <returns>IOptionsWritableを登録するDIコンテナを表すIServiceCollection。</returns>
 	private static IServiceCollection addWritableOptions<T>(IServiceCollection services, IConfigurationSection configurationSection, string jsonFileName) where T : class, new()
 	{
-		services.AddTransient<IOptionsWritable<T>>(provider =>
+		services.AddSingleton<IOptionsWritable<T>>(provider =>
 		{
 			var configRoot = (IConfigurationRoot) provider.GetRequiredService<IConfiguration>();
 			var options = provider.GetRequiredService<IOptionsMonitor<T>>();

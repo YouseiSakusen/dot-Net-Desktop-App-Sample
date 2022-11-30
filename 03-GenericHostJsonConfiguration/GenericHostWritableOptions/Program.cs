@@ -12,5 +12,4 @@ IHost host = Host.CreateDefaultBuilder(args)
 	})
 	.Build();
 
-await Task.Delay(10000);
 await host.RunAsync();
