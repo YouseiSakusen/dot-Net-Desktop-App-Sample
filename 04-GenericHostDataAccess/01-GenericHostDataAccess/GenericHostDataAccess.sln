@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OptionsWritable", "OptionsW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericHostDataAccess.Entities", "GenericHostDataAccess.Entities\GenericHostDataAccess.Entities.csproj", "{737016CF-89B2-438C-953B-4F09709D8EC6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessObjects", "DataAccesses.Repositories\DataAccessObjects.csproj", "{D274028E-0A8C-406A-8D76-78A9456DF198}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessObjects", "DataAccessObjects\DataAccessObjects.csproj", "{D274028E-0A8C-406A-8D76-78A9456DF198}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericHostDataAccess.ApplicationLogics", "GenericHostDataAccess.ApplicationLogics\GenericHostDataAccess.ApplicationLogics.csproj", "{3AE47573-12ED-4517-9B9B-179F2E71E8D0}"
 EndProject
