@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccesses.Repositories\DataAccessObjects.csproj" />
+    <ProjectReference Include="..\GenericHostDataAccess.DataAccesses\GenericHostDataAccess.DataAccesses.csproj" />
+    <ProjectReference Include="..\GenericHostDataAccess.Entities\GenericHostDataAccess.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

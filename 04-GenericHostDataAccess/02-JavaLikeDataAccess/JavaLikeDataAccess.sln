@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JavaLikeDataAccess", "JavaLikeDataAccess\JavaLikeDataAccess.csproj", "{6FCB6445-E123-47A7-8481-1CD006768F90}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JavaLikeDataAccess.DataAccessObjects", "JavaLikeDataAccess.DataAccessObjects\JavaLikeDataAccess.DataAccessObjects.csproj", "{1159CDD0-735D-4B12-8996-00EB03CD9E08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaLikeDataAccess.Models", "JavaLikeDataAccess.Models\JavaLikeDataAccess.Models.csproj", "{57B9925B-F2CD-465C-9177-3B587CF75DBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FCB6445-E123-47A7-8481-1CD006768F90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FCB6445-E123-47A7-8481-1CD006768F90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FCB6445-E123-47A7-8481-1CD006768F90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FCB6445-E123-47A7-8481-1CD006768F90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1159CDD0-735D-4B12-8996-00EB03CD9E08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1159CDD0-735D-4B12-8996-00EB03CD9E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1159CDD0-735D-4B12-8996-00EB03CD9E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1159CDD0-735D-4B12-8996-00EB03CD9E08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57B9925B-F2CD-465C-9177-3B587CF75DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57B9925B-F2CD-465C-9177-3B587CF75DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57B9925B-F2CD-465C-9177-3B587CF75DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57B9925B-F2CD-465C-9177-3B587CF75DBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE645EF0-82F6-4B64-A6EF-6288635E9232}
+	EndGlobalSection
+EndGlobal

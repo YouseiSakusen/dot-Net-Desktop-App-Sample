@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-GenericHostDataAccess-8909e23d-7769-4b51-8d31-7964168f2c94</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetStandard" Version="1.0.117" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccesses.Repositories\DataAccessObjects.csproj" />
+    <ProjectReference Include="..\GenericHostDataAccess.ApplicationLogics\GenericHostDataAccess.ApplicationLogics.csproj" />
+    <ProjectReference Include="..\GenericHostDataAccess.DataAccesses\GenericHostDataAccess.DataAccesses.csproj" />
+    <ProjectReference Include="..\GenericHostDataAccess.Entities\GenericHostDataAccess.Entities.csproj" />
+    <ProjectReference Include="..\OptionsWritable\OptionsWritable.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SampleDb.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
