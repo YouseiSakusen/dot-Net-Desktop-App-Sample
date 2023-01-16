@@ -46,4 +46,11 @@ public class Worker : BackgroundService
 
 	private void OnStopped()
 		=> Console.WriteLine("Application Stopped...");
+
+	public override void Dispose()
+	{
+		base.Dispose();
+
+		Console.WriteLine("Worker Disposed...");
+	}
 }

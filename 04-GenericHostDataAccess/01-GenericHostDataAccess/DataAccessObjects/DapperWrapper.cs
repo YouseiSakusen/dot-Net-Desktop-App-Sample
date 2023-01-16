@@ -18,9 +18,7 @@ public class DapperWrapper
 	/// <param name="dbConnection">DBへの有効な接続を表すDbConnection。</param>
 	/// <param name="dbTransaction">DBのトランザクションを表すDbTransaction?。</param>
 	internal void SetDataAccessObjects(DbConnection dbConnection, DbTransaction? dbTransaction = null)
-	{
-		(this.connection, this.transaction) = (dbConnection, dbTransaction);
-	}
+		=> (this.connection, this.transaction) = (dbConnection, dbTransaction);
 
 	public int Execute(string sql, object? param = null, int? commandTimeout = null, CommandType? commandType = null)
 	{
